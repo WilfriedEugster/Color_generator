@@ -206,8 +206,6 @@ function empty_data() {
 }
 
 function add_data(palette, sliders) {
-  n_data_palettes++;
-  
   let new_line = "";
   for (let c of palette)
     new_line += round(hue(c)) + ";" + round(saturation(c)) + ";" + round(lightness(c)) + ";";
@@ -255,7 +253,7 @@ function random_palette() {
 function display_palette(x, y, dx, dy, palette) {
   const color_width = dx / n_colors;
   
-  min(text_size, this.dy * 0.75 - 1)
+  textSize(min(text_size * 0.75, y * 0.75 - 1));
   textAlign(CENTER, CENTER);
   rectMode(CORNER);
   
@@ -328,15 +326,21 @@ function draw() {
   }
   
   if (buttons[1].pop_clicked()) { // generate a new palette
-    add_data(palette, sliders);
+    if (!current_palette_saved)
+      add_data(palette, sliders);
     generate_new_palette();
+    n_data_palettes++;
   }
   
   fill(0);
   textSize(min(text_size, foot_height * 0.75 - 1));
   textAlign(CENTER, CENTER);
-  text("Palettes in the data : " + n_data_palettes, 0, y_foot, width, foot_height);
+  text("Palettes in the data: " + n_data_palettes, 0, y_foot, width, foot_height);
   
+  fill(20);
+  textSize(min(text_size * 0.7, margin * 0.75 - 1));
+  textAlign(RIGHT, CENTER);
+  text("Color annotator - EUGSTER Wilfried - IMAC 2025", 20, height - margin, width - 40, margin);
   
   noFill();
   stroke(40);
