@@ -13,6 +13,7 @@ const tags2 = ["active", "bright", "warm", "dry", "bitter", "acid", "noisy", "ha
 const buttons_tags = ["Reset all", "New palette", "Save data"];
 
 const n_colors = 4;
+const color_stroke_weight = 2;
 
 let margin, side_margin, margin2, text_size, main_width, color_height, color_text_height, y_sliders, slider_height, y_buttons, button_height, button_width, y_foot, foot_height;
 
@@ -336,11 +337,12 @@ function draw() {
   textAlign(CENTER, CENTER);
   text("Palettes in the data : " + n_data_palettes, 0, y_foot, width, foot_height);
   
-  /*
+  
   noFill();
-  stroke(0);
-  rect(side_margin, margin, main_width, height - 2 * margin);
-  */
+  stroke(40);
+  strokeWeight(color_stroke_weight);
+  rect(side_margin - color_stroke_weight / 2, margin - color_stroke_weight / 2, main_width + color_stroke_weight, color_height + color_stroke_weight, 2);
+  noStroke();
 
   if (mouse_pressing)
     mouse_pressing = false;
